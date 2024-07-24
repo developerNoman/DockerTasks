@@ -1,4 +1,6 @@
+#using the latest version of ubuntu image from docker hub
 FROM ubuntu:latest
+#getting the updated packages, install the listed packages without any recommended additional packages. Installed the packages required compliers etc for the software building, c++ libareries, python3 and git etc
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
@@ -6,6 +8,6 @@ RUN apt-get update && \
     python3 \
     libboost-all-dev \
     git
-WORKDIR /app
-COPY . /app
+WORKDIR /workspace
+COPY . /workspace
 CMD ["bash"]

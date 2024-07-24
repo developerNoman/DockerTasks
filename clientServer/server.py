@@ -3,11 +3,12 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+#health check point which response the Ok when server is runnning 
 @app.route('/health', methods=['GET'])
 def health_check():
     return "OK", 200
 
-
+#ping check point which response the pong when server is connected with client 
 @app.route('/ping', methods=['POST'])
 def ping():
     if request.is_json:
@@ -19,6 +20,7 @@ def ping():
             }
             return jsonify(response), 200
     return jsonify({"error": "Invalid request"}), 400
+
 
 @app.route('/data', methods=['POST'])
 def data():
