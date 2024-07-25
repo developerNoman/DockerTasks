@@ -1,37 +1,4 @@
-# version: '3.8'
 
-# services:
-#   server:
-#     build:
-#       context: .
-#       dockerfile: Dockerfile.server
-#     container_name: server
-#     ports:
-#       - "5000:5000"
-#     healthcheck:  
-#       test: ["CMD-SHELL", "curl -f http://server:5000/health || exit 1"]
-#       interval: 30s
-#       timeout: 10s
-#       retries: 5
-#     networks:
-#       - webnet
-
-#   client:
-#     build:
-#       context: .
-#       dockerfile: Dockerfile.client
-#     container_name: client
-#     depends_on:
-#        server:
-#        condition: service_healthy
-#     entrypoint: ["/bin/sh", "-c", "while ! curl -s http://server:5000/health; do sleep 1; done; python client.py"]
-#     networks:
-#       - webnet
-
-# networks:
-#   webnet:
-#     driver: bridge
-#     # condition: service_healthy
 version: '3.8'
 
 services:
@@ -43,9 +10,11 @@ services:
     ports:
       - "5000:5000"
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
+      # test: ["CMD-SHELL", "curl -f http://server:5000/health || exit 1"]
+      test: ["CMD-SHELL", "wget --spider --quiet http://localhost:5000/health || exit 1"]
+      # test: ["CMD-SHELL", "echo 'Server is up'"]
       interval: 30s
-      timeout: 10s
+      timeout: 15s
       retries: 5
     networks:
       - webnet
@@ -58,7 +27,6 @@ services:
     depends_on:
       server:
        condition: service_healthy
-    entrypoint: ["/bin/sh", "-c", "while ! curl -s http://server:5000/health; do sleep 1; done; python client.py"]
     networks:
       - webnet
 
