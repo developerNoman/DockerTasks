@@ -10,8 +10,8 @@ services:
     ports:
       - "5000:5000"
     healthcheck:
-      # test: ["CMD-SHELL", "curl -f http://server:5000/health || exit 1"]
-      test: ["CMD-SHELL", "wget --spider --quiet http://localhost:5000/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://server:5000/health || exit 1"]
+      # test: ["CMD-SHELL", "wget --spider --quiet http://localhost:5000/health || exit 1"]
       # test: ["CMD-SHELL", "echo 'Server is up'"]
       interval: 30s
       timeout: 15s
