@@ -6,7 +6,6 @@ RUN apt-get update && \
     build-essential \
     cmake \
     python3 \
-    libboost-all-dev \
     git
 WORKDIR /workspace
 COPY . /workspace
