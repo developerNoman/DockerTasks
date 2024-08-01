@@ -8,6 +8,6 @@ RUN pip install Flask \
     && apt-get update \
     && apt-get install -y curl
 
-EXPOSE 5000
+# EXPOSE 5000
 
 CMD ["python", "server.py"]

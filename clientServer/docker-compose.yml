@@ -1,5 +1,5 @@
 
-version: '3.8'
+# version: '3.8'
 
 services:
   server:
@@ -7,18 +7,13 @@ services:
       context: .
       dockerfile: Dockerfile.server
     container_name: server
-    ports:
-      - "5000:5000"
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://server:5000/health || exit 1"]
-      # test: ["CMD-SHELL", "wget --spider --quiet http://localhost:5000/health || exit 1"]
-      # test: ["CMD-SHELL", "echo 'Server is up'"]
+      test: ["CMD-SHELL", "curl -f http://server:5000/health"]
       interval: 30s
       timeout: 15s
       retries: 5
-    networks:
-      - webnet
-
+    profiles:
+      - server
   client:
     build:
       context: .
@@ -26,10 +21,9 @@ services:
     container_name: client
     depends_on:
       server:
-       condition: service_healthy
-    networks:
-      - webnet
+        condition: service_healthy
+    profiles:
+      - client
 
-networks:
-  webnet:
-    driver: bridge
+# sudo docker compose --profile server --profile client up
+# sudo docker compose --profile server up
